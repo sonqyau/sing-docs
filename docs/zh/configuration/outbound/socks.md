@@ -1,14 +1,12 @@
-# SOCKS
-
 `socks` 出站是 socks4/socks4a/socks5 客户端
 
-## 结构
+### 结构
 
 ```json
 {
   "type": "socks",
   "tag": "socks-out",
-
+  
   "server": "127.0.0.1",
   "server_port": 1080,
   "version": "5",
@@ -21,39 +19,35 @@
 }
 ```
 
-## 拨号字段
+### 字段
 
-参阅 [拨号字段](../shared/dial)。
+#### server
 
-## 字段
-
-### server
-
-> [!IMPORTANT] 必填
+==必填==
 
 服务器地址。
 
-### server_port
+#### server_port
 
-> [!IMPORTANT] 必填
+==必填==
 
 服务器端口。
 
-### version
+#### version
 
 SOCKS 版本, 可为 `4` `4a` `5`.
 
 默认使用 SOCKS5。
 
-### username
+#### username
 
 SOCKS 用户名。
 
-### password
+#### password
 
 SOCKS5 密码。
 
-### network
+#### network
 
 启用的网络协议
 
@@ -61,8 +55,12 @@ SOCKS5 密码。
 
 默认所有。
 
-### udp_over_tcp
+#### udp_over_tcp
 
 UDP over TCP 配置。
 
-参阅 [UDP over TCP](../shared/udp-over-tcp)。
+参阅 [UDP Over TCP](/zh/configuration/shared/udp-over-tcp/)。
+
+### 拨号字段
+
+参阅 [拨号字段](/zh/configuration/shared/dial/)。

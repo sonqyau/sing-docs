@@ -1,6 +1,4 @@
-# Adguard DNS Filter
-
-> [!IMPORTANT] 🆕 自 sing-box 1.10.0 起
+!!! question "自 sing-box 1.10.0 起"
 
 sing-box 支持其他项目的一些规则集格式，这些格式无法完全转换为 sing-box，
 目前只有 AdGuard DNS Filter。
@@ -30,32 +28,32 @@ AdGuard 将所有规则保存在内存中并按顺序匹配，
 
 #### 基本规则语法
 
-| 语法   | 支持               |
-| ------ | ------------------ |
-| `@@`   | :white_check_mark: |
-| `\|\|` | :white_check_mark: |
-| `\|`   | :white_check_mark: |
-| `^`    | :white_check_mark: |
-| `*`    | :white_check_mark: |
+| 语法     | 支持               |
+|--------|------------------|
+| `@@`   | :material-check: | 
+| `\|\|` | :material-check: | 
+| `\|`   | :material-check: |
+| `^`    | :material-check: |
+| `*`    | :material-check: |
 
 #### 主机语法
 
-| 语法        | 示例                     | 支持               |
-| ----------- | ------------------------ | ------------------ |
-| Scheme      | `https://`               | :warning: Ignored  |
-| Domain Host | `example.org`            | :white_check_mark: |
-| IP Host     | `1.1.1.1`, `10.0.0.`     | :x:                |
-| Regexp      | `/regexp/`               | :white_check_mark: |
-| Port        | `example.org:80`         | :x:                |
-| Path        | `example.org/path/ad.js` | :x:                |
+| 语法          | 示例                       | 支持                       |
+|-------------|--------------------------|--------------------------|
+| Scheme      | `https://`               | :material-alert: Ignored |
+| Domain Host | `example.org`            | :material-check:         |
+| IP Host     | `1.1.1.1`, `10.0.0.`     | :material-close:         |
+| Regexp      | `/regexp/`               | :material-check:         |
+| Port        | `example.org:80`         | :material-close:         |
+| Path        | `example.org/path/ad.js` | :material-close:         |
 
 #### 描述符语法
 
-| 描述符                | 支持               |
-| --------------------- | ------------------ |
-| `$important`          | :white_check_mark: |
-| `$dnsrewrite=0.0.0.0` | :warning: Ignored  |
-| 任何其他描述符        | :x:                |
+| 描述符                   | 支持                       |
+|-----------------------|--------------------------|
+| `$important`          | :material-check:         |
+| `$dnsrewrite=0.0.0.0` | :material-alert: Ignored |
+| 任何其他描述符               | :material-close:         |
 
 ### Hosts
 
@@ -63,4 +61,4 @@ AdGuard 将所有规则保存在内存中并按顺序匹配，
 
 ### 简易
 
-当所有行都是有效域时，它们被视为简单的逐行域规则，与 hosts 一样，只匹配完全相同的域。
+当所有行都是有效域时，它们被视为简单的逐行域规则， 与 hosts 一样，只匹配完全相同的域。

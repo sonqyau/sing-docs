@@ -1,136 +1,125 @@
+---
+icon: material/send
+---
+
 # Shadowsocks
 
 Shadowsocks is the most well-known Chinese-made proxy protocol.
-It exists in multiple versions, but only AEAD 2022 ciphers
+It exists in multiple versions, but only AEAD 2022 ciphers 
 over TCP with multiplexing is recommended.
 
 | Ciphers        | Specification                                              | Cryptographically sound | Resists passive detection | Resists active probes |
-| -------------- | ---------------------------------------------------------- | :---------------------: | :-----------------------: | :-------------------: |
-| Stream Ciphers | [shadowsocks.org](https://shadowsocks.org/doc/stream.html) | :warning:               | :warning:                 | :warning:             |
-| AEAD           | [shadowsocks.org](https://shadowsocks.org/doc/aead.html)   | :white_check_mark:      | :warning:                 | :warning:             |
-| AEAD 2022      | [shadowsocks.org](https://shadowsocks.org/doc/sip022.html) | :white_check_mark:      | :white_check_mark:        | :question:            |
+|----------------|------------------------------------------------------------|-------------------------|---------------------------|-----------------------|
+| Stream Ciphers | [shadowsocks.org](https://shadowsocks.org/doc/stream.html) | :material-alert:        | :material-alert:          | :material-alert:      |
+| AEAD           | [shadowsocks.org](https://shadowsocks.org/doc/aead.html)   | :material-check:        | :material-alert:          | :material-alert:      |
+| AEAD 2022      | [shadowsocks.org](https://shadowsocks.org/doc/sip022.html) | :material-check:        | :material-check:          | :material-help:       |
 
 (We strongly recommend using multiplexing to send UDP traffic over TCP, because
 doing otherwise is vulnerable to passive detection.)
 
-## Password Generator
+## :material-text-box-check: Password Generator
 
-| For `2022-blake3-aes-128-gcm` cipher | For other ciphers        | Action                                     |
-| ------------------------------------ | ------------------------ | ------------------------------------------ |
-| <code>{{ pwd16 }}</code>             | <code>{{ pwd32 }}</code> | <button @click="generate">Refresh</button> |
+| For `2022-blake3-aes-128-gcm` cipher | For other ciphers             | Action                                                          |
+|--------------------------------------|-------------------------------|-----------------------------------------------------------------|
+| <code id="password_16"><code>        | <code id="password_32"><code> | <button class="md-button" onclick="generate()">Refresh</button> |
 
-<script setup>
-import { ref, onMounted } from 'vue'
-
-const pwd16 = ref( '' )
-const pwd32 = ref( '' )
-
-const generatePassword = length => {
-  const array = new Uint8Array(length);
-  window.crypto.getRandomValues(array);
-  return btoa(String.fromCharCode.apply(null, array));
-}
-
-const generate = () => {
-  pwd16.value = generatePassword(16)
-  pwd32.value = generatePassword(32)
-}
-
-onMounted( generate )
+<script>
+    function generatePassword(element, length) {
+        const array = new Uint8Array(length);
+        window.crypto.getRandomValues(array);
+        document.getElementById(element).textContent = btoa(String.fromCharCode.apply(null, array));
+    }
+    function generate() {
+      generatePassword("password_16", 16);
+      generatePassword("password_32", 32);
+    }
+    generate();
 </script>
 
-## Server Example
+## :material-server: Server Example
 
-::: tabs
+=== ":material-account: Single-user"
 
-== Single-user
-
-```json
-{
-  "inbounds": [
-    {
-      "type": "shadowsocks",
-      "listen": "::",
-      "listen_port": 8080,
-      "network": "tcp",
-      "method": "2022-blake3-aes-128-gcm",
-      "password": "<password>",
-      "multiplex": {
-        "enabled": true
-      }
-    }
-  ]
-}
-```
-
-== Multi-user
-
-```json
-{
-  "inbounds": [
-    {
-      "type": "shadowsocks",
-      "listen": "::",
-      "listen_port": 8080,
-      "network": "tcp",
-      "method": "2022-blake3-aes-128-gcm",
-      "password": "<server_password>",
-      "users": [
+    ```json
+     {
+      "inbounds": [
         {
-          "name": "sekai",
-          "password": "<user_password>"
+          "type": "shadowsocks",
+          "listen": "::",
+          "listen_port": 8080,
+          "network": "tcp",
+          "method": "2022-blake3-aes-128-gcm",
+          "password": "<password>",
+          "multiplex": {
+            "enabled": true
+          }
         }
-      ],
-      "multiplex": {
-        "enabled": true
-      }
+      ]
     }
-  ]
-}
-```
+    ```
 
-:::
+=== ":material-account-multiple: Multi-user"
+
+    ```json
+     {
+      "inbounds": [
+        {
+          "type": "shadowsocks",
+          "listen": "::",
+          "listen_port": 8080,
+          "network": "tcp",
+          "method": "2022-blake3-aes-128-gcm",
+          "password": "<server_password>",
+          "users": [
+            {
+              "name": "sekai",
+              "password": "<user_password>"
+            }
+          ],
+          "multiplex": {
+            "enabled": true
+          }
+        }
+      ]
+    }
+    ```
 
 ## :material-cellphone-link: Client Example
 
-::: tabs
+=== ":material-account: Single-user"
 
-== Single-user
-
-```json
-{
-  "outbounds": [
+    ```json
     {
-      "type": "shadowsocks",
-      "server": "127.0.0.1",
-      "server_port": 8080,
-      "method": "2022-blake3-aes-128-gcm",
-      "password": "<pasword>",
-      "multiplex": {
-        "enabled": true
-      }
+      "outbounds": [
+        {
+          "type": "shadowsocks",
+          "server": "127.0.0.1",
+          "server_port": 8080,
+          "method": "2022-blake3-aes-128-gcm",
+          "password": "<pasword>",
+          "multiplex": {
+            "enabled": true
+          }
+        }
+      ]
     }
-  ]
-}
-```
+    ```
 
-== Multi-user
+=== ":material-account-multiple: Multi-user"
 
-```json
-{
-  "outbounds": [
+    ```json
     {
-      "type": "shadowsocks",
-      "server": "127.0.0.1",
-      "server_port": 8080,
-      "method": "2022-blake3-aes-128-gcm",
-      "password": "<server_pasword>:<user_password>",
-      "multiplex": {
-        "enabled": true
-      }
+      "outbounds": [
+        {
+          "type": "shadowsocks",
+          "server": "127.0.0.1",
+          "server_port": 8080,
+          "method": "2022-blake3-aes-128-gcm",
+          "password": "<server_pasword>:<user_password>",
+          "multiplex": {
+            "enabled": true
+          }
+        }
+      ]
     }
-  ]
-}
-```
-
-:::
+    ```

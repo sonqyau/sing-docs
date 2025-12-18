@@ -1,11 +1,11 @@
 # 实验性
 
-> [!NOTE] sing-box 1.8.0 中的更改
-> :new:[cache_file](#cache-file)
->
-> :warning:[clash_api](#clash-api)
+!!! quote "sing-box 1.8.0 中的更改"
 
-## 结构
+    :material-plus: [cache_file](#cache_file)  
+    :material-alert-decagram: [clash_api](#clash_api)
+
+### 结构
 
 ```json
 {
@@ -17,10 +17,10 @@
 }
 ```
 
-## 字段
+### 字段
 
-| 键           | 格式                     |
-| ------------ | ------------------------ |
-| `cache_file` | [缓存文件](./cache-file) |
-| `clash_api`  | [Clash API](./clash-api) |
-| `v2ray_api`  | [V2Ray API](./v2ray-api) |
+| 键            | 格式                       |
+|--------------|--------------------------|
+| `cache_file` | [缓存文件](./cache-file/)     |
+| `clash_api`  | [Clash API](./clash-api/) |
+| `v2ray_api`  | [V2Ray API](./v2ray-api/) |

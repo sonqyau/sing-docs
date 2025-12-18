@@ -1,343 +1,507 @@
-# 路由规则
+---
+icon: material/new-box
+---
 
-> [!NOTE] sing-box 1.11.0 中的更改
-> :new:[action](#action)
->
-> :warning:[outbound](#outbound)
->
-> :new:[network_type](#network-type)
->
-> :new:[network_is_expensive](#network-is-expensive)
->
-> :new:[network_is_constrained](#network-is-constrained)
+!!! quote "sing-box 1.13.0 中的更改"
 
-> [!NOTE] sing-box 1.10.0 中的更改
-> :new:[client](#client)
->
-> :hourglass:[rule_set_ipcidr_match_source](#rule-set-ipcidr-match-source)
->
-> :new:[process_path_regex](#process-path-regex)
+    :material-plus: [interface_address](#interface_address)  
+    :material-plus: [network_interface_address](#network_interface_address)  
+    :material-plus: [default_interface_address](#default_interface_address)  
+    :material-plus: [preferred_by](#preferred_by)  
+    :material-alert: [network](#network)
 
-> [!NOTE] sing-box 1.8.0 中的更改
-> :new:[rule_set](#rule-set)
->
-> :new:[rule_set_ipcidr_match_source](#rule-set-ipcidr-match-source)
->
-> :new:[source_ip_is_private](#source-ip-is-private)
->
-> :new:[ip_is_private](#ip-is-private)
->
-> :hourglass:[source_geoip](#source-geoip)
->
-> :hourglass:[geoip](#geoip)
->
-> :hourglass:[geosite](#geosite)
+!!! quote "sing-box 1.11.0 中的更改"
 
-## 结构
+    :material-plus: [action](#action)  
+    :material-alert: [outbound](#outbound)  
+    :material-plus: [network_type](#network_type)  
+    :material-plus: [network_is_expensive](#network_is_expensive)  
+    :material-plus: [network_is_constrained](#network_is_constrained)
+
+!!! quote "sing-box 1.10.0 中的更改"
+
+    :material-plus: [client](#client)  
+    :material-delete-clock: [rule_set_ipcidr_match_source](#rule_set_ipcidr_match_source)  
+    :material-plus: [process_path_regex](#process_path_regex)
+
+!!! quote "sing-box 1.8.0 中的更改"
+
+    :material-plus: [rule_set](#rule_set)  
+    :material-plus: [rule_set_ipcidr_match_source](#rule_set_ipcidr_match_source)  
+    :material-plus: [source_ip_is_private](#source_ip_is_private)  
+    :material-plus: [ip_is_private](#ip_is_private)  
+    :material-delete-clock: [source_geoip](#source_geoip)  
+    :material-delete-clock: [geoip](#geoip)  
+    :material-delete-clock: [geosite](#geosite)
+
+### 结构
 
 ```json
 {
-  "rules": [
-    {
-      "inbound": ["mixed-in"],
-      "ip_version": 6,
-      "network": ["tcp"],
-      "auth_user": ["usera", "userb"],
-      "protocol": ["tls", "http", "quic"],
-      "client": ["chromium", "safari", "firefox", "quic-go"],
-      "domain": ["test.com"],
-      "domain_suffix": [".cn"],
-      "domain_keyword": ["test"],
-      "domain_regex": ["^stun\\..+"],
-      "geosite": ["cn"],
-      "source_geoip": ["private"],
-      "geoip": ["cn"],
-      "source_ip_cidr": ["10.0.0.0/24"],
-      "source_ip_is_private": false,
-      "ip_cidr": ["10.0.0.0/24"],
-      "ip_is_private": false,
-      "source_port": [12345],
-      "source_port_range": ["1000:2000", ":3000", "4000:"],
-      "port": [80, 443],
-      "port_range": ["1000:2000", ":3000", "4000:"],
-      "process_name": ["curl"],
-      "process_path": ["/usr/bin/curl"],
-      "process_path_regex": ["^/usr/bin/.+"],
-      "package_name": ["com.termux"],
-      "user": ["sekai"],
-      "user_id": [1000],
-      "clash_mode": "direct",
-      "network_type": ["wifi"],
-      "network_is_expensive": false,
-      "network_is_constrained": false,
-      "wifi_ssid": ["My WIFI"],
-      "wifi_bssid": ["00:00:00:00:00:00"],
-      "rule_set": ["geoip-cn", "geosite-cn"],
-      // 已弃用
-      "rule_set_ipcidr_match_source": false,
-      "rule_set_ip_cidr_match_source": false,
-      "invert": false,
-      "action": "route",
-      "outbound": "direct"
-    },
-    {
-      "type": "logical",
-      "mode": "and",
-      "rules": [],
-      "invert": false,
-      "action": "route",
-      "outbound": "direct"
-    }
-  ]
+  "route": {
+    "rules": [
+      {
+        "inbound": [
+          "mixed-in"
+        ],
+        "ip_version": 6,
+        "network": [
+          "tcp"
+        ],
+        "auth_user": [
+          "usera",
+          "userb"
+        ],
+        "protocol": [
+          "tls",
+          "http",
+          "quic"
+        ],
+        "client": [
+          "chromium",
+          "safari",
+          "firefox",
+          "quic-go"
+        ],
+        "domain": [
+          "test.com"
+        ],
+        "domain_suffix": [
+          ".cn"
+        ],
+        "domain_keyword": [
+          "test"
+        ],
+        "domain_regex": [
+          "^stun\\..+"
+        ],
+        "geosite": [
+          "cn"
+        ],
+        "source_geoip": [
+          "private"
+        ],
+        "geoip": [
+          "cn"
+        ],
+        "source_ip_cidr": [
+          "10.0.0.0/24"
+        ],
+        "source_ip_is_private": false,
+        "ip_cidr": [
+          "10.0.0.0/24"
+        ],
+        "ip_is_private": false,
+        "source_port": [
+          12345
+        ],
+        "source_port_range": [
+          "1000:2000",
+          ":3000",
+          "4000:"
+        ],
+        "port": [
+          80,
+          443
+        ],
+        "port_range": [
+          "1000:2000",
+          ":3000",
+          "4000:"
+        ],
+        "process_name": [
+          "curl"
+        ],
+        "process_path": [
+          "/usr/bin/curl"
+        ],
+        "process_path_regex": [
+          "^/usr/bin/.+"
+        ],
+        "package_name": [
+          "com.termux"
+        ],
+        "user": [
+          "sekai"
+        ],
+        "user_id": [
+          1000
+        ],
+        "clash_mode": "direct",
+        "network_type": [
+          "wifi"
+        ],
+        "network_is_expensive": false,
+        "network_is_constrained": false,
+        "interface_address": {
+          "en0": [
+            "2000::/3"
+          ]
+        },
+        "network_interface_address": {
+          "wifi": [
+            "2000::/3"
+          ]
+        },
+        "default_interface_address": [
+          "2000::/3"
+        ],
+        "wifi_ssid": [
+          "My WIFI"
+        ],
+        "wifi_bssid": [
+          "00:00:00:00:00:00"
+        ],
+        "preferred_by": [
+          "tailscale",
+          "wireguard"
+        ],
+        "rule_set": [
+          "geoip-cn",
+          "geosite-cn"
+        ],
+        // 已弃用
+        "rule_set_ipcidr_match_source": false,
+        "rule_set_ip_cidr_match_source": false,
+        "invert": false,
+        "action": "route",
+        "outbound": "direct"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [],
+        "invert": false,
+        "action": "route",
+        "outbound": "direct"
+      }
+    ]
+  }
 }
+
 ```
 
-> [!NOTE] 当内容只有一项时，可以忽略 JSON 数组 [] 标签。
+!!! note ""
 
-## 默认字段
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签。
 
-> [!NOTE] 默认规则使用以下匹配逻辑:
-> (`domain` || `domain_suffix` || `domain_keyword` || `domain_regex` || `geosite` || `geoip` || `ip_cidr` || `ip_is_private`) &&
->
-> (`port` || `port_range`) &&
->
-> (`source_geoip` || `source_ip_cidr` || `source_ip_is_private`) &&
->
-> (`source_port` || `source_port_range`) &&
->
-> `other fields`
->
-> 另外，引用的规则集可视为被合并，而不是作为一个单独的规则子项。
+### 默认字段
 
-### inbound
+!!! note ""
 
-[入站](../inbound/) 标签。
+    默认规则使用以下匹配逻辑:  
+    (`domain` || `domain_suffix` || `domain_keyword` || `domain_regex` || `geosite` || `geoip` || `ip_cidr` || `ip_is_private`) &&  
+    (`port` || `port_range`) &&  
+    (`source_geoip` || `source_ip_cidr` || `source_ip_is_private`) &&  
+    (`source_port` || `source_port_range`) &&  
+    `other fields`
 
-### ip_version
+    另外，引用的规则集可视为被合并，而不是作为一个单独的规则子项。
+
+#### inbound
+
+[入站](/zh/configuration/inbound/) 标签。
+
+#### ip_version
 
 4 或 6。
 
 默认不限制。
 
-### auth_user
+#### auth_user
 
 认证用户名，参阅入站设置。
 
-### protocol
+#### protocol
 
-探测到的协议, 参阅 [协议探测](./sniff)。
+探测到的协议, 参阅 [协议探测](/zh/configuration/route/sniff/)。
 
-### client
+#### client
 
-> [!IMPORTANT] 🆕 自 sing-box 1.10.0 起
+!!! question "自 sing-box 1.10.0 起"
 
-探测到的客户端类型, 参阅 [协议探测](./sniff)。
+探测到的客户端类型, 参阅 [协议探测](/zh/configuration/route/sniff/)。
 
-### network
+#### network
 
-`tcp` 或 `udp`。
+!!! quote "sing-box 1.13.0 中的更改"
 
-### domain
+    自 sing-box 1.13.0 起，您可以通过新的 `icmp` 网络匹配 ICMP 回显（ping）请求。
 
-匹配完整域名。
-
-### domain_suffix
-
-匹配域名后缀。
-
-### domain_keyword
-
-匹配域名关键字。
-
-### domain_regex
-
-匹配域名正则表达式。
-
-### geosite
-
-> [!CAUTION] 已在 sing-box 1.8.0 废弃
-> Geosite 已废弃且可能在不久的将来移除，参阅 [迁移指南](../../start/migration#geosite)。
-
-匹配 Geosite。
-
-### source_geoip
-
-> [!CAUTION] 已在 sing-box 1.8.0 废弃
-> GeoIP 已废弃且可能在不久的将来移除，参阅 [迁移指南](../../start/migration#geoip)。
-
-匹配源 GeoIP。
-
-### geoip
-
-> [!CAUTION] 已在 sing-box 1.8.0 废弃
-> GeoIP 已废弃且可能在不久的将来移除，参阅 [迁移指南](../../start/migration#geoip)。
-
-匹配 GeoIP。
-
-### source_ip_cidr
-
-匹配源 IP CIDR。
-
-### source_ip_is_private
-
-> [!IMPORTANT] 🆕 自 sing-box 1.8.0 起
-
-匹配非公开源 IP。
-
-### ip_cidr
-
-匹配 IP CIDR。
-
-### ip_is_private
-
-> [!IMPORTANT] 🆕 自 sing-box 1.8.0 起
-
-匹配非公开 IP。
-
-### source_port
-
-匹配源端口。
-
-### source_port_range
-
-匹配源端口范围。
-
-### port
-
-匹配端口。
-
-### port_range
-
-匹配端口范围。
-
-### process_name
-
-> [!WARNING] 仅支持 Linux、Windows 和 macOS。
-
-匹配进程名称。
-
-### process_path
-
-> [!WARNING] 仅支持 Linux、Windows 和 macOS。
-
-匹配进程路径。
-
-### process_path_regex
-
-> [!IMPORTANT] 🆕 自 sing-box 1.10.0 起
-
-> [!WARNING] 仅支持 Linux、Windows 和 macOS。
-
-使用正则表达式匹配进程路径。
-
-### package_name
-
-匹配 Android 应用包名。
-
-### user
-
-> [!WARNING] 仅支持 Linux。
-
-匹配用户名。
-
-### user_id
-
-> [!WARNING] 仅支持 Linux。
-
-匹配用户 ID。
-
-### clash_mode
-
-匹配 Clash 模式。
-
-### network_type
-
-> [!IMPORTANT] 🆕 自 sing-box 1.11.0 起
-
-> [!WARNING] 仅在 Android 与 Apple 平台图形客户端中支持。
+    此类流量源自 `TUN`、`WireGuard` 和 `Tailscale` 入站，并可路由至 `Direct`、`WireGuard` 和 `Tailscale` 出站。
 
 匹配网络类型。
 
-Available values: `wifi`, `cellular`, `ethernet` and `other`.
+`tcp`、`udp` 或 `icmp`。
 
-### network_is_expensive
+#### domain
 
-> [!IMPORTANT] 🆕 自 sing-box 1.11.0 起
+匹配完整域名。
 
-> [!WARNING] 仅在 Android 与 Apple 平台图形客户端中支持。
+#### domain_suffix
 
-匹配如果网络被视为计费 (在 Android) 或被视为昂贵，像蜂窝网络或个人热点 (在 Apple 平台)。
+匹配域名后缀。
 
-### network_is_constrained
+#### domain_keyword
 
-> [!IMPORTANT] 🆕 自 sing-box 1.11.0 起
+匹配域名关键字。
 
-> [!WARNING] 仅在 Apple 平台图形客户端中支持。
+#### domain_regex
+
+匹配域名正则表达式。
+
+#### geosite
+
+!!! failure "已在 sing-box 1.8.0 废弃"
+
+    Geosite 已废弃且可能在不久的将来移除，参阅 [迁移指南](/zh/migration/#geosite)。
+
+匹配 Geosite。
+
+#### source_geoip
+
+!!! failure "已在 sing-box 1.8.0 废弃"
+
+    GeoIP 已废弃且可能在不久的将来移除，参阅 [迁移指南](/zh/migration/#geoip)。
+
+匹配源 GeoIP。
+
+#### geoip
+
+!!! failure "已在 sing-box 1.8.0 废弃"
+
+    GeoIP 已废弃且可能在不久的将来移除，参阅 [迁移指南](/zh/migration/#geoip)。
+
+匹配 GeoIP。
+
+#### source_ip_cidr
+
+匹配源 IP CIDR。
+
+#### source_ip_is_private
+
+!!! question "自 sing-box 1.8.0 起"
+
+匹配非公开源 IP。
+
+#### ip_cidr
+
+匹配 IP CIDR。
+
+#### ip_is_private
+
+!!! question "自 sing-box 1.8.0 起"
+
+匹配非公开 IP。
+
+#### source_port
+
+匹配源端口。
+
+#### source_port_range
+
+匹配源端口范围。
+
+#### port
+
+匹配端口。
+
+#### port_range
+
+匹配端口范围。
+
+#### process_name
+
+!!! quote ""
+
+    仅支持 Linux、Windows 和 macOS。
+
+匹配进程名称。
+
+#### process_path
+
+!!! quote ""
+
+    仅支持 Linux、Windows 和 macOS.
+
+匹配进程路径。
+
+#### process_path_regex
+
+!!! question "自 sing-box 1.10.0 起"
+
+!!! quote ""
+
+    仅支持 Linux、Windows 和 macOS.
+
+使用正则表达式匹配进程路径。
+
+#### package_name
+
+匹配 Android 应用包名。
+
+#### user
+
+!!! quote ""
+
+    仅支持 Linux.
+
+匹配用户名。
+
+#### user_id
+
+!!! quote ""
+
+    仅支持 Linux.
+
+匹配用户 ID。
+
+#### clash_mode
+
+匹配 Clash 模式。
+
+#### network_type
+
+!!! question "自 sing-box 1.11.0 起"
+
+!!! quote ""
+
+    仅在 Android 与 Apple 平台图形客户端中支持。
+
+匹配网络类型。
+
+可用值: `wifi`, `cellular`, `ethernet` and `other`.
+
+#### network_is_expensive
+
+!!! question "自 sing-box 1.11.0 起"
+
+!!! quote ""
+
+    仅在 Android 与 Apple 平台图形客户端中支持。
+
+匹配如果网络被视为计费 (在 Android) 或被视为昂贵，
+像蜂窝网络或个人热点 (在 Apple 平台)。
+
+#### network_is_constrained
+
+!!! question "自 sing-box 1.11.0 起"
+
+!!! quote ""
+
+    仅在 Apple 平台图形客户端中支持。
 
 匹配如果网络在低数据模式下。
 
-### wifi_ssid
+#### interface_address
 
-> [!WARNING] 仅在 Android 与 Apple 平台图形客户端中支持。
+!!! question "自 sing-box 1.13.0 起"
+
+!!! quote ""
+
+    仅支持 Linux、Windows 和 macOS.
+
+匹配接口地址。
+
+#### network_interface_address
+
+!!! question "自 sing-box 1.13.0 起"
+
+!!! quote ""
+
+    仅在 Android 与 Apple 平台图形客户端中支持。
+
+匹配网络接口（可用值同 `network_type`）地址。
+
+#### default_interface_address
+
+!!! question "自 sing-box 1.13.0 起"
+
+!!! quote ""
+
+    仅支持 Linux、Windows 和 macOS.
+
+匹配默认接口地址。
+
+#### wifi_ssid
+
+!!! quote ""
+
+    仅在 Android 与 Apple 平台图形客户端和 Linux 中支持。
 
 匹配 WiFi SSID。
 
-### wifi_bssid
+#### wifi_bssid
 
-> [!WARNING] 仅在 Android 与 Apple 平台图形客户端中支持。
+!!! quote ""
+
+    仅在 Android 与 Apple 平台图形客户端和 Linux 中支持。
 
 匹配 WiFi BSSID。
 
-### rule_set
+#### preferred_by
 
-> [!IMPORTANT] 🆕 自 sing-box 1.8.0 起
+!!! question "自 sing-box 1.13.0 起"
 
-匹配[规则集](../route/rule_set)。
+匹配制定出站的首选路由。
 
-### rule_set_ipcidr_match_source
+| 类型          | 匹配                             |
+|-------------|--------------------------------|
+| `tailscale` | 匹配 MagicDNS 域名和对端的 allowed IPs |
+| `wireguard` | 匹配对端的 allowed IPs              |
 
-> [!IMPORTANT] 🆕 自 sing-box 1.8.0 起
+#### rule_set
 
-> [!CAUTION] 已在 sing-box 1.10.0 废弃
-> `rule_set_ipcidr_match_source` 已重命名为 `rule_set_ip_cidr_match_source` 且将在 sing-box 1.11.0 中被移除。
+!!! question "自 sing-box 1.8.0 起"
+
+匹配[规则集](/zh/configuration/route/#rule_set)。
+
+#### rule_set_ipcidr_match_source
+
+!!! question "自 sing-box 1.8.0 起"
+
+!!! failure "已在 sing-box 1.10.0 废弃"
+
+    `rule_set_ipcidr_match_source` 已重命名为 `rule_set_ip_cidr_match_source` 且将在 sing-box 1.11.0 中被移除。
 
 使规则集中的 `ip_cidr` 规则匹配源 IP。
 
-### rule_set_ip_cidr_match_source
+#### rule_set_ip_cidr_match_source
 
-> [!IMPORTANT] 🆕 自 sing-box 1.10.0 起
+!!! question "自 sing-box 1.10.0 起"
 
 使规则集中的 `ip_cidr` 规则匹配源 IP。
 
-### invert
+#### invert
 
 反选匹配结果。
 
-### action
+#### action
 
-> [!IMPORTANT] 必填
+==必填==
 
-参阅 [路由规则动作](./rule_action)。
+参阅 [规则动作](../rule_action/)。
 
-### outbound
+#### outbound
 
-> [!CAUTION] 已在 sing-box 1.11.0 废弃
-> 已移动到 [路由规则动作](./rule_action#route).
+!!! failure "已在 sing-box 1.11.0 废弃"
 
-## 逻辑字段
+    已移动到 [规则动作](../rule_action#route).
 
-### type
+### 逻辑字段
+
+#### type
 
 `logical`
 
-### mode
+#### mode
 
-> [!IMPORTANT] 必填
+==必填==
 
 `and` 或 `or`
 
-### rules
+#### rules
 
-> [!IMPORTANT] 必填
+==必填==
 
 包括的规则。

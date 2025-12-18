@@ -1,8 +1,6 @@
-# V2Ray 传输层
-
 V2Ray Transport 是 v2ray 发明的一组私有协议，并污染了其他协议的名称，如 clash 中的 `trojan-grpc`。
 
-## 结构
+### 结构
 
 ```json
 {
@@ -12,23 +10,23 @@ V2Ray Transport 是 v2ray 发明的一组私有协议，并污染了其他协议
 
 可用的传输协议：
 
-- HTTP
-- WebSocket
-- QUIC
-- gRPC
-- HTTPUpgrade
+* HTTP
+* WebSocket
+* QUIC
+* gRPC
+* HTTPUpgrade
 
-> [!WARNING] 与 v2ray-core 的区别
->
-> - 没有 TCP 传输层, 纯 HTTP 已合并到 HTTP 传输层。
->
-> - 没有 mKCP 传输层。
->
-> - 没有 DomainSocket 传输层。
+!!! warning "与 v2ray-core 的区别"
 
-> [!NOTE] 当内容只有一项时，可以忽略 JSON 数组 [] 标签。
+    * 没有 TCP 传输层, 纯 HTTP 已合并到 HTTP 传输层。
+    * 没有 mKCP 传输层。
+    * 没有 DomainSocket 传输层。
 
-## HTTP
+!!! note ""
+
+    当内容只有一项时，可以忽略 JSON 数组 [] 标签。
+
+### HTTP
 
 ```json
 {
@@ -42,39 +40,40 @@ V2Ray Transport 是 v2ray 发明的一组私有协议，并污染了其他协议
 }
 ```
 
-> [!WARNING] 与 v2ray-core 的区别
-> 不强制执行 TLS。如果未配置 TLS，将使用纯 HTTP 1.1。
+!!! warning "与 v2ray-core 的区别"
 
-### host
+    不强制执行 TLS。如果未配置 TLS，将使用纯 HTTP 1.1。
+
+#### host
 
 主机域名列表。
 
 如果设置，客户端将随机选择，服务器将验证。
 
-### path
+#### path
 
-> [!WARNING]
-> V2Ray 文档称服务端和客户端的路径必须一致，但实际代码允许客户端向路径添加任何后缀。
+!!! warning
 
-> sing-box 使用与 V2Ray 相同的行为，但请注意，该行为在 `WebSocket` 和 `HTTPUpgrade` 传输层中不存在。
+    V2Ray 文档称服务端和客户端的路径必须一致，但实际代码允许客户端向路径添加任何后缀。
+    sing-box 使用与 V2Ray 相同的行为，但请注意，该行为在 `WebSocket` 和 `HTTPUpgrade` 传输层中不存在。
 
 HTTP 请求路径
 
 服务器将验证。
 
-### method
+#### method
 
 HTTP 请求方法
 
 如果设置，服务器将验证。
 
-### headers
+#### headers
 
 HTTP 请求的额外标头
 
 如果设置，服务器将写入响应。
 
-### idle_timeout
+#### idle_timeout
 
 在 HTTP2 服务器中：
 
@@ -86,13 +85,13 @@ HTTP 请求的额外标头
 
 默认使用零。
 
-### ping_timeout
+#### ping_timeout
 
 在 HTTP2 客户端中：
 
 指定发送 PING 帧后，在指定的超时时间内必须接收到响应。如果在指定的超时时间内没有收到 PING 帧的响应，则连接将关闭。默认超时持续时间为 15 秒。
 
-## WebSocket
+### WebSocket
 
 ```json
 {
@@ -104,23 +103,23 @@ HTTP 请求的额外标头
 }
 ```
 
-### path
+#### path
 
 HTTP 请求路径
 
 服务器将验证。
 
-### headers
+#### headers
 
 HTTP 请求的额外标头
 
 如果设置，服务器将写入响应。
 
-### max_early_data
+#### max_early_data
 
 请求中允许的最大有效负载大小。默认启用。
 
-### early_data_header_name
+#### early_data_header_name
 
 默认情况下，早期数据在路径而不是标头中发送。
 
@@ -128,7 +127,7 @@ HTTP 请求的额外标头
 
 它需要与服务器保持一致。
 
-## QUIC
+### QUIC
 
 ```json
 {
@@ -136,15 +135,16 @@ HTTP 请求的额外标头
 }
 ```
 
-> [!WARNING] 与 v2ray-core 的区别
-> 没有额外的加密支持：
->
-> 它基本上是重复加密。并且 Xray-core 在这里与 v2ray-core 不兼容。
+!!! warning "与 v2ray-core 的区别"
 
-## gRPC
+    没有额外的加密支持：
+    它基本上是重复加密。 并且 Xray-core 在这里与 v2ray-core 不兼容。
 
-> [!NOTE]
-> 默认安装不包含标准 gRPC (兼容性好，但性能较差), 参阅 [安装](../../installation/build-from-source#自定义构建)。
+### gRPC
+
+!!! note ""
+
+    默认安装不包含标准 gRPC (兼容性好，但性能较差), 参阅 [安装](/zh/installation/build-from-source/#_5)。
 
 ```json
 {
@@ -156,11 +156,11 @@ HTTP 请求的额外标头
 }
 ```
 
-### service_name
+#### service_name
 
 gRPC 服务名称。
 
-### idle_timeout
+#### idle_timeout
 
 在标准 gRPC 服务器/客户端：
 
@@ -170,7 +170,7 @@ gRPC 服务名称。
 
 它的行为与 HTTP 传输层中的相应设置相同。
 
-### ping_timeout
+#### ping_timeout
 
 在标准 gRPC 服务器/客户端：
 
@@ -180,7 +180,7 @@ gRPC 服务名称。
 
 它的行为与 HTTP 传输层中的相应设置相同。
 
-### permit_without_stream
+#### permit_without_stream
 
 在标准 gRPC 客户端：
 
@@ -188,7 +188,7 @@ gRPC 服务名称。
 
 默认禁用。
 
-## HTTPUpgrade
+### HTTPUpgrade
 
 ```json
 {
@@ -199,19 +199,19 @@ gRPC 服务名称。
 }
 ```
 
-### host
+#### host
 
 主机域名。
 
 服务器将验证。
 
-### path
+#### path
 
 HTTP 请求路径
 
 服务器将验证。
 
-### headers
+#### headers
 
 HTTP 请求的额外标头。
 

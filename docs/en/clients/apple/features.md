@@ -14,40 +14,40 @@ SFI/SFM/SFT allows you to run sing-box through NetworkExtension with Application
 
 SFI/SFM/SFT provides an unprivileged TUN implementation through NetworkExtension.
 
-| TUN inbound option            | Available          | Note              |
-|-------------------------------|:------------------:|-------------------|
-| `interface_name`              | :x:                | Managed by Darwin |
-| `inet4_address`               | :white_check_mark: | /                 |
-| `inet6_address`               | :white_check_mark: | /                 |
-| `mtu`                         | :white_check_mark: | /                 |
-| `gso`                         | :x:                | Not implemented   |
-| `auto_route`                  | :white_check_mark: | /                 |
-| `strict_route`                | :x:                | Not implemented   |
-| `inet4_route_address`         | :white_check_mark: | /                 |
-| `inet6_route_address`         | :white_check_mark: | /                 |
-| `inet4_route_exclude_address` | :white_check_mark: | /                 |
-| `inet6_route_exclude_address` | :white_check_mark: | /                 |
-| `endpoint_independent_nat`    | :white_check_mark: | /                 |
-| `stack`                       | :white_check_mark: | /                 |
-| `include_interface`           | :x:                | Not implemented   |
-| `exclude_interface`           | :x:                | Not implemented   |
-| `include_uid`                 | :x:                | Not implemented   |
-| `exclude_uid`                 | :x:                | Not implemented   |
-| `include_android_user`        | :x:                | Not implemented   |
-| `include_package`             | :x:                | Not implemented   |
-| `exclude_package`             | :x:                | Not implemented   |
-| `platform`                    | :white_check_mark: | /                 |
+| TUN inbound option            | Available         | Note              |
+|-------------------------------|-------------------|-------------------|
+| `interface_name`              | :material-close:️ | Managed by Darwin |
+| `inet4_address`               | :material-check:  | /                 |
+| `inet6_address`               | :material-check:  | /                 |
+| `mtu`                         | :material-check:  | /                 |
+| `gso`                         | :material-close:  | Not implemented   |
+| `auto_route`                  | :material-check:  | /                 |
+| `strict_route`                | :material-close:️ | Not implemented   |
+| `inet4_route_address`         | :material-check:  | /                 |
+| `inet6_route_address`         | :material-check:  | /                 |
+| `inet4_route_exclude_address` | :material-check:  | /                 |
+| `inet6_route_exclude_address` | :material-check:  | /                 |
+| `endpoint_independent_nat`    | :material-check:  | /                 |
+| `stack`                       | :material-check:  | /                 |
+| `include_interface`           | :material-close:️ | Not implemented   |
+| `exclude_interface`           | :material-close:️ | Not implemented   |
+| `include_uid`                 | :material-close:️ | Not implemented   |
+| `exclude_uid`                 | :material-close:️ | Not implemented   |
+| `include_android_user`        | :material-close:️ | Not implemented   |
+| `include_package`             | :material-close:️ | Not implemented   |
+| `exclude_package`             | :material-close:️ | Not implemented   |
+| `platform`                    | :material-check:  | /                 |
 
-| Route/DNS rule option | Available | Note                  |
-|-----------------------|:---------:|-----------------------|
-| `process_name`        | :x:       | No permission         |
-| `process_path`        | :x:       | No permission         |
-| `process_path_regex`  | :x:       | No permission         |
-| `package_name`        | :x:       | /                     |
-| `user`                | :x:       | No permission         |
-| `user_id`             | :x:       | No permission         |
-| `wifi_ssid`           | :warning: | Only supported on iOS |
-| `wifi_bssid`          | :warning: | Only supported on iOS |
+| Route/DNS rule option | Available        | Note                  |
+|-----------------------|------------------|-----------------------|
+| `process_name`        | :material-close: | No permission         |
+| `process_path`        | :material-close: | No permission         |
+| `process_path_regex`  | :material-close: | No permission         |
+| `package_name`        | :material-close: | /                     |
+| `user`                | :material-close: | No permission         |
+| `user_id`             | :material-close: | No permission         |
+| `wifi_ssid`           | :material-alert: | Only supported on iOS |
+| `wifi_bssid`          | :material-alert: | Only supported on iOS |
 
 ### Chore
 

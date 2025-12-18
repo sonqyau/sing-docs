@@ -1,4 +1,4 @@
-# Features
+# :material-decagram: Features
 
 #### UI options
 
@@ -12,40 +12,40 @@ SFA allows you to run sing-box through ForegroundService or VpnService (when TUN
 
 SFA provides an unprivileged TUN implementation through Android VpnService.
 
-| TUN inbound option            | Available          | Note               |
-|-------------------------------|:------------------:|--------------------|
-| `interface_name`              | :x:                | Managed by Android |
-| `inet4_address`               | :white_check_mark: | /                  |
-| `inet6_address`               | :white_check_mark: | /                  |
-| `mtu`                         | :white_check_mark: | /                  |
-| `gso`                         | :x:                | No permission      |
-| `auto_route`                  | :white_check_mark: | /                  |
-| `strict_route`                | :x:                | Not implemented    |
-| `inet4_route_address`         | :white_check_mark: | /                  |
-| `inet6_route_address`         | :white_check_mark: | /                  |
-| `inet4_route_exclude_address` | :white_check_mark: | /                  |
-| `inet6_route_exclude_address` | :white_check_mark: | /                  |
-| `endpoint_independent_nat`    | :white_check_mark: | /                  |
-| `stack`                       | :white_check_mark: | /                  |
-| `include_interface`           | :x:                | No permission      |
-| `exclude_interface`           | :x:                | No permission      |
-| `include_uid`                 | :x:                | No permission      |
-| `exclude_uid`                 | :x:                | No permission      |
-| `include_android_user`        | :x:                | No permission      |
-| `include_package`             | :white_check_mark: | /                  |
-| `exclude_package`             | :white_check_mark: | /                  |
-| `platform`                    | :white_check_mark: | /                  |
+| TUN inbound option            | Available        | Note               |
+|-------------------------------|------------------|--------------------|
+| `interface_name`              | :material-close: | Managed by Android |
+| `inet4_address`               | :material-check: | /                  |
+| `inet6_address`               | :material-check: | /                  |
+| `mtu`                         | :material-check: | /                  |
+| `gso`                         | :material-close: | No permission      |
+| `auto_route`                  | :material-check: | /                  |
+| `strict_route`                | :material-close: | Not implemented    |
+| `inet4_route_address`         | :material-check: | /                  |
+| `inet6_route_address`         | :material-check: | /                  |
+| `inet4_route_exclude_address` | :material-check: | /                  |
+| `inet6_route_exclude_address` | :material-check: | /                  |
+| `endpoint_independent_nat`    | :material-check: | /                  |
+| `stack`                       | :material-check: | /                  |
+| `include_interface`           | :material-close: | No permission      |
+| `exclude_interface`           | :material-close: | No permission      |
+| `include_uid`                 | :material-close: | No permission      |
+| `exclude_uid`                 | :material-close: | No permission      |
+| `include_android_user`        | :material-close: | No permission      |
+| `include_package`             | :material-check: | /                  |
+| `exclude_package`             | :material-check: | /                  |
+| `platform`                    | :material-check: | /                  |
 
-| Route/DNS rule option | Available          | Note                              |
-|-----------------------|:------------------:|-----------------------------------|
-| `process_name`        | :x:                | No permission                     |
-| `process_path`        | :x:                | No permission                     |
-| `process_path_regex`  | :x:                | No permission                     |
-| `package_name`        | :white_check_mark: | /                                 |
-| `user`                | :x:                | Use `package_name` instead        |
-| `user_id`             | :x:                | Use `package_name` instead        |
-| `wifi_ssid`           | :white_check_mark: | Fine location permission required |
-| `wifi_bssid`          | :white_check_mark: | Fine location permission required |
+| Route/DNS rule option | Available        | Note                              |
+|-----------------------|------------------|-----------------------------------|
+| `process_name`        | :material-close: | No permission                     |
+| `process_path`        | :material-close: | No permission                     |
+| `process_path_regex`  | :material-close: | No permission                     |
+| `package_name`        | :material-check: | /                                 |
+| `user`                | :material-close: | Use `package_name` instead        |
+| `user_id`             | :material-close: | Use `package_name` instead        |
+| `wifi_ssid`           | :material-check: | Fine location permission required |
+| `wifi_bssid`          | :material-check: | Fine location permission required |
 
 ### Override
 

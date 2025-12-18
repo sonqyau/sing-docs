@@ -1,3 +1,7 @@
+---
+icon: material/android
+---
+
 # sing-box for Android
 
 SFA allows users to manage and run local or remote sing-box configuration files, and provides

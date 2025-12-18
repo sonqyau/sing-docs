@@ -1,6 +1,4 @@
-# VLESS
-
-## 结构
+### 结构
 
 ```json
 {
@@ -22,43 +20,40 @@
 }
 ```
 
-## 监听字段
+### 监听字段
 
-参阅 [监听字段](../shared/listen)。
+参阅 [监听字段](/zh/configuration/shared/listen/)。
 
-## 字段
+### 字段
 
-### users
+#### users
 
-> [!IMPORTANT] 必填
+==必填==
 
 VLESS 用户。
 
-> #### name
->
-> VLESS 用户名。
->
-> #### uuid
->
-> > [!IMPORTANT] 必填
->
-> VLESS 用户 ID。
->
-> #### flow
->
-> VLESS 子协议。
-> 可用值：
->
-> - `xtls-rprx-vision`
+#### users.uuid
 
-### tls
+==必填==
 
-TLS 配置, 参阅 [TLS](../shared/tls#结构)。
+VLESS 用户 ID。
 
-### multiplex
+#### users.flow
 
-参阅 [多路复用](../shared/multiplex#结构)。
+VLESS 子协议。
 
-### transport
+可用值：
 
-V2Ray 传输配置，参阅 [V2Ray 传输层](../shared/v2ray-transport)。
+* `xtls-rprx-vision`
+
+#### tls
+
+TLS 配置, 参阅 [TLS](/zh/configuration/shared/tls/#inbound)。
+
+#### multiplex
+
+参阅 [多路复用](/zh/configuration/shared/multiplex#inbound)。
+
+#### transport
+
+V2Ray 传输配置，参阅 [V2Ray 传输层](/zh/configuration/shared/v2ray-transport/)。

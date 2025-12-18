@@ -1,8 +1,6 @@
-# Mixed
-
 `mixed` 入站是一个 socks4, socks4a, socks5 和 http 服务器.
 
-## 结构
+### 结构
 
 ```json
 {
@@ -21,22 +19,26 @@
 }
 ```
 
-## 监听字段
+### 监听字段
 
-参阅 [监听字段](../shared/listen)。
+参阅 [监听字段](/zh/configuration/shared/listen/)。
 
-## 字段
+### 字段
 
-### users
+#### users
 
 SOCKS 和 HTTP 用户
 
 如果为空则不需要验证。
 
-### set_system_proxy
+#### set_system_proxy
 
-> [!WARNING] 仅支持 Linux、Android、Windows 和 macOS。
+!!! quote ""
 
-> [!WARNING] 要在无特权的 Android 和 iOS 上工作，请改用 tun.platform.http_proxy。
+    仅支持 Linux、Android、Windows 和 macOS。
+
+!!! warning ""
+
+    要在无特权的 Android 和 iOS 上工作，请改用 tun.platform.http_proxy。
 
 启动时自动设置系统代理，停止时自动清理。

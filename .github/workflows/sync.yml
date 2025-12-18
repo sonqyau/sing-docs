@@ -1,0 +1,78 @@
+name: Sync
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Clone and sync docs
+        run: |
+          git clone --depth=1 --branch=dev-next --filter=blob:none --sparse https://github.com/SagerNet/sing-box.git s
+          cd s && git sparse-checkout set docs && cd ..
+
+          h=$(git -C s rev-parse --short HEAD)
+          t=$(git -C s log -1 --format="%aI")
+
+          rm -rf docs/{en,zh}
+          mkdir -p docs/{en,zh}
+
+          cd s/docs
+
+          find . -name "*.zh.md" -exec sh -c '
+            f="$1"
+            d="${f%/*}"
+            b="${f##*/}"
+            b="${b%.zh.md}.md"
+            d="${d#./}"
+            if [ "$d" = "." ]; then
+              target_dir="../../docs/zh"
+            else
+              target_dir="../../docs/zh/$d"
+            fi
+            mkdir -p "$target_dir"
+            cp "$f" "$target_dir/$b"
+          ' _ {} \;
+
+          find . -name "*.md" ! -name "*.zh.md" -exec sh -c '
+            f="$1"
+            d="${f%/*}"
+            b="${f##*/}"
+            d="${d#./}"
+            if [ "$d" = "." ]; then
+              target_dir="../../docs/en"
+            else
+              target_dir="../../docs/en/$d"
+            fi
+            mkdir -p "$target_dir"
+            cp "$f" "$target_dir/$b"
+          ' _ {} \;
+
+          cd ../..
+          rm -rf s
+
+      - name: Commit and push changes
+        run: |
+          git add docs
+          git diff --staged --quiet || {
+            git commit -m "feat: bump $h [$t]"
+            git push
+          }

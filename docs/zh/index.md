@@ -1,10 +1,14 @@
-# 开始
+---
+description: 欢迎来到该 sing-box 项目的文档页。
+---
 
-欢迎来到 sing-box 项目的文档页。
+# :material-home: 开始
+
+欢迎来到该 sing-box 项目的文档页。
 
 通用代理平台。
 
-## 协议
+## 授权
 
 ```
 Copyright (C) 2022 by nekohasekai <contact-sagernet@sekai.icu>

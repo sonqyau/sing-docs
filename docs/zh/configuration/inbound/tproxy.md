@@ -1,8 +1,8 @@
-# TProxy
+!!! quote ""
 
-> [!WARNING] 仅支持 Linux。
+    仅支持 Linux。
 
-## 结构
+### 结构
 
 ```json
 {
@@ -15,13 +15,13 @@
 }
 ```
 
-## 监听字段
+### 监听字段
 
-参阅 [监听字段](../shared/listen)。
+参阅 [监听字段](/zh/configuration/shared/listen/)。
 
-## 字段
+### 字段
 
-### network
+#### network
 
 监听的网络协议，`tcp` `udp` 之一。
 

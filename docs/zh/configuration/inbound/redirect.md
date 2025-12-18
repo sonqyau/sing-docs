@@ -1,8 +1,8 @@
-# Redirect
+!!! quote ""
 
-> [!WARNING] 仅支持 Linux 和 macOS。
+    仅支持 Linux 和 macOS。
 
-## 结构
+### 结构
 
 ```json
 {
@@ -12,7 +12,6 @@
   ... // 监听字段
 }
 ```
+### 监听字段
 
-## 监听字段
-
-参阅 [监听字段](../shared/listen)。
+参阅 [监听字段](/zh/configuration/shared/listen/)。

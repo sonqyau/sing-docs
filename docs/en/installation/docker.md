@@ -1,6 +1,10 @@
+---
+icon: material/docker
+---
+
 # Docker
 
-## :pencil2: Command
+## :material-console: Command
 
 ```bash
 docker run -d \
@@ -12,7 +16,7 @@ docker run -d \
   -C /etc/sing-box/ run
 ```
 
-## :memo: Compose
+## :material-box-shadow: Compose
 
 ```yaml
 version: "3.8"

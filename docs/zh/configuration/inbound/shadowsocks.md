@@ -1,10 +1,4 @@
-# Shadowsocks
-
-## 结构
-
-::: tabs
-
-== 单用户
+### 结构
 
 ```json
 {
@@ -19,7 +13,7 @@
 }
 ```
 
-== 多用户
+### 多用户结构
 
 ```json
 {
@@ -35,7 +29,7 @@
 }
 ```
 
-== 中转
+### 中转结构
 
 ```json
 {
@@ -54,46 +48,44 @@
 }
 ```
 
-:::
+### Listen Fields
 
-## 监听字段
+See [Listen Fields](/configuration/shared/listen/) for details.
 
-参阅 [监听字段](../shared/listen)。
+### 字段
 
-## 字段
-
-### network
+#### network
 
 监听的网络协议，`tcp` `udp` 之一。
 
 默认所有。
 
-### method
+#### method
 
-> [!IMPORTANT] 必填
+==必填==
 
-| 方法                          | 密钥长度 |
-| ----------------------------- | -------- |
-| 2022-blake3-aes-128-gcm       | 16       |
-| 2022-blake3-aes-256-gcm       | 32       |
-| 2022-blake3-chacha20-poly1305 | 32       |
-| none                          | /        |
-| aes-128-gcm                   | /        |
-| aes-192-gcm                   | /        |
-| aes-256-gcm                   | /        |
-| chacha20-ietf-poly1305        | /        |
-| xchacha20-ietf-poly1305       | /        |
+| 方法                            | 密钥长度 |
+|-------------------------------|------|
+| 2022-blake3-aes-128-gcm       | 16   |
+| 2022-blake3-aes-256-gcm       | 32   |
+| 2022-blake3-chacha20-poly1305 | 32   |
+| none                          | /    |
+| aes-128-gcm                   | /    |
+| aes-192-gcm                   | /    |
+| aes-256-gcm                   | /    |
+| chacha20-ietf-poly1305        | /    |
+| xchacha20-ietf-poly1305       | /    |
 
-### password
+#### password
 
-> [!IMPORTANT] 必填
+==必填==
 
-| 方法          | 密码格式                                     |
-| ------------- | -------------------------------------------- |
-| none          | /                                            |
+| 方法            | 密码格式                                     |
+|---------------|------------------------------------------|
+| none          | /                                        |
 | 2022 methods  | `sing-box generate rand --base64 <密钥长度>` |
-| other methods | 任意字符串                                   |
+| other methods | 任意字符串                                    |
 
-### multiplex
+#### multiplex
 
-参阅 [多路复用](../shared/multiplex#inbound)。
+参阅 [多路复用](/zh/configuration/shared/multiplex#inbound)。

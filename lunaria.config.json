@@ -27,5 +27,7 @@
     }
   ],
   "outDir": ".vitepress/dist/_translations",
-  "ignoreKeywords": ["lunaria-ignore"]
+  "ignoreKeywords": [
+    "lunaria-ignore"
+  ]
 }

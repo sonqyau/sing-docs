@@ -1,3 +1,7 @@
+---
+icon: material/pencil-ruler
+---
+
 # General
 
 Describes and explains the functions implemented uniformly by sing-box graphical clients.
@@ -56,4 +60,4 @@ Graphical clients should provide a Core region:
 
 * Display the current sing-box version
 * Provides a button to clean the working directory
-* Provides a memory limiter switch  
+* Provides a memory limiter switch

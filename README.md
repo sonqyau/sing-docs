@@ -1,4 +1,4 @@
-# Yet Another sing-box Doc
+# Yet Another sing-box Docs
 
 Powered by Bun + VitePress + TypeScripte
 

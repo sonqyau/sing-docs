@@ -1,6 +1,4 @@
-# SSH
-
-## 结构
+### 结构
 
 ```json
 {
@@ -24,50 +22,50 @@
 }
 ```
 
-## 拨号字段
+### 字段
 
-参阅 [拨号字段](../shared/dial)。
+#### server
 
-## 字段
-
-### server
-
-> [!IMPORTANT] 必填
+==必填==
 
 服务器地址。
 
-### server_port
+#### server_port
 
 服务器端口，默认使用 22。
 
-### user
+#### user
 
 SSH 用户, 默认使用 root。
 
-### password
+#### password
 
 密码。
 
-### private_key
+#### private_key
 
 密钥。
 
-### private_key_path
+#### private_key_path
 
 密钥路径。
 
-### private_key_passphrase
+#### private_key_passphrase
 
 密钥密码。
 
-### host_key
+#### host_key
 
 主机密钥，留空接受所有。
 
-### host_key_algorithms
+#### host_key_algorithms
 
 主机密钥算法。
 
-### client_version
+#### client_version
 
 客户端版本，默认使用随机值。
+
+### 拨号字段
+
+参阅 [拨号字段](/zh/configuration/shared/dial/)。
