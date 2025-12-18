@@ -17,6 +17,7 @@ updates:
           - "*"
 
   - package-ecosystem: "bun"
+    directory: "/"
     schedule:
       interval: "daily"
     labels:
