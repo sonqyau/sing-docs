@@ -20,7 +20,7 @@ tries to achieve a user-defined bandwidth despite packet loss.
 
 | Generate Password          | Action                                                          |
 |----------------------------|-----------------------------------------------------------------|
-| <code id="password"></code> | <button class="md-button" onclick="generate()">Refresh</button> |
+| <code id="password"><code> | <button class="md-button" onclick="generate()">Refresh</button> |
 
 <script>
     function generate() {
