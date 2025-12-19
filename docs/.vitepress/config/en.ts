@@ -1,5 +1,6 @@
-import { DefaultTheme, defineConfig } from "vitepress";
-import { createItemsWithPrefix, sidebarWithPrefix } from "./common";
+import type { DefaultTheme } from "vitepress";
+import { defineConfig } from "vitepress";
+import { createPrefixedItems, createPrefixedSidebar } from "./common";
 
 const homeSideBar: DefaultTheme.SidebarItem[] = [
   {
@@ -34,14 +35,14 @@ const clientsSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Android",
         link: "android/",
-        items: createItemsWithPrefix("android/", [
+        items: createPrefixedItems("android/", [
           { text: "Features", link: "features" },
         ]),
       },
       {
         text: "Apple platforms",
         link: "apple/",
-        items: createItemsWithPrefix("apple/", [
+        items: createPrefixedItems("apple/", [
           { text: "Features", link: "features" },
         ]),
       },
@@ -58,7 +59,7 @@ const manualSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Proxy",
         link: "",
-        items: createItemsWithPrefix("proxy/", [
+        items: createPrefixedItems("proxy/", [
           { text: "Server", link: "server" },
           { text: "Client", link: "client" },
         ]),
@@ -66,7 +67,7 @@ const manualSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Proxy Protocol",
         link: "",
-        items: createItemsWithPrefix("proxy-protocol/", [
+        items: createPrefixedItems("proxy-protocol/", [
           { text: "Shadowsocks", link: "shadowsocks" },
           { text: "Trojan", link: "trojan" },
           { text: "Hysteria 2", link: "hysteria2" },
@@ -75,7 +76,7 @@ const manualSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Misc",
         link: "",
-        items: createItemsWithPrefix("misc/", [
+        items: createPrefixedItems("misc/", [
           { text: "TunnelVision", link: "tunnelvision" },
         ]),
       },
@@ -93,7 +94,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "DNS",
         link: "dns",
-        items: createItemsWithPrefix("dns/", [
+        items: createPrefixedItems("dns/", [
           { text: "DNS Server", link: "server" },
           { text: "DNS Rule", link: "rule" },
           { text: "DNS Rule Action", link: "rule_action" },
@@ -103,7 +104,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Route",
         link: "route",
-        items: createItemsWithPrefix("route/", [
+        items: createPrefixedItems("route/", [
           { text: "Geosite", link: "geosite" },
           { text: "GeoIP", link: "geoip" },
           { text: "Route Rule", link: "rule" },
@@ -114,7 +115,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Rule Set",
         link: "rule-set",
-        items: createItemsWithPrefix("rule-set/", [
+        items: createPrefixedItems("rule-set/", [
           { text: "Headless Rule", link: "headless-rule" },
           { text: "Source Format", link: "source-format" },
           { text: "Adguard DNS Filter", link: "adguard" },
@@ -123,7 +124,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Experimental",
         link: "experimental",
-        items: createItemsWithPrefix("experimental/", [
+        items: createPrefixedItems("experimental/", [
           { text: "Cache File", link: "cache-file" },
           { text: "Clash API", link: "clash-api" },
           { text: "V2Ray API", link: "v2ray-api" },
@@ -132,7 +133,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Shared",
         link: "",
-        items: createItemsWithPrefix("shared/", [
+        items: createPrefixedItems("shared/", [
           { text: "Listen", link: "listen" },
           { text: "Dial", link: "dial" },
           { text: "TLS", link: "tls" },
@@ -146,7 +147,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Endpoint",
         link: "endpoint",
-        items: createItemsWithPrefix("endpoint/", [
+        items: createPrefixedItems("endpoint/", [
           { text: "WireGuard", link: "wireguard" },
           { text: "Tailscale", link: "tailscale" },
         ]),
@@ -158,7 +159,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Inbound",
         link: "inbound",
-        items: createItemsWithPrefix("inbound/", [
+        items: createPrefixedItems("inbound/", [
           { text: "Direct", link: "direct" },
           { text: "Mixed", link: "mixed" },
           { text: "SOCKS", link: "socks" },
@@ -181,7 +182,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Outbound",
         link: "outbound",
-        items: createItemsWithPrefix("outbound/", [
+        items: createPrefixedItems("outbound/", [
           { text: "Direct", link: "direct" },
           { text: "Block", link: "block" },
           { text: "SOCKS", link: "socks" },
@@ -207,7 +208,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Service",
         link: "service",
-        items: createItemsWithPrefix("service/", [
+        items: createPrefixedItems("service/", [
           { text: "CCM", link: "ccm" },
           { text: "DERP", link: "derp" },
           { text: "OCM", link: "ocm" },
@@ -219,29 +220,26 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
   },
 ];
 
+const navItems: DefaultTheme.NavItemWithLink[] = [
+  { text: "Installation", link: "installation/package-manager" },
+  { text: "Graphical Clients", link: "clients/" },
+  { text: "Manual", link: "manual/proxy/server" },
+  { text: "Configuration", link: "configuration/" },
+];
+
+const sideBarConfig: DefaultTheme.SidebarMulti = {
+  "/installation": { base: "/installation/", items: installationSideBar },
+  "/clients": { base: "/clients/", items: clientsSideBar },
+  "/manual": { base: "/manual/", items: manualSideBar },
+  "/configuration": { base: "/configuration/", items: configurationSideBar },
+  "/": { base: "/", items: homeSideBar },
+};
+
 export const en = defineConfig({
   lang: "en-US",
   themeConfig: {
-    nav: createItemsWithPrefix("/en/", [
-      { text: "Installation", link: "installation/package-manager" },
-      { text: "Graphical Clients", link: "clients/" },
-      { text: "Manual", link: "manual/proxy/server" },
-      { text: "Configuration", link: "configuration/" },
-    ]),
-
-    footer: {
-      copyright: `Copyright © 2022 nekohasekai`,
-    },
-
-    sidebar: sidebarWithPrefix("/en", {
-      "/installation": { base: "/installation/", items: installationSideBar },
-      "/clients": { base: "/clients/", items: clientsSideBar },
-      "/manual": { base: "/manual/", items: manualSideBar },
-      "/configuration": {
-        base: "/configuration/",
-        items: configurationSideBar,
-      },
-      "/": { base: "/", items: homeSideBar },
-    }),
+    nav: createPrefixedItems("/en/", navItems),
+    footer: { copyright: "Copyright © 2022 nekohasekai" },
+    sidebar: createPrefixedSidebar("/en", sideBarConfig),
   },
 });

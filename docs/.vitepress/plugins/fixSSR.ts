@@ -1,26 +1,30 @@
 import type MarkdownIt from "markdown-it";
 
-export function fixSSRPlugin(md: MarkdownIt) {
-  const originalParse = md.parse.bind(md);
+const SSR_FIXES = [
+  [
+    /window\.crypto\.getRandomValues/g,
+    '(typeof window!=="undefined"?window.crypto.getRandomValues:(()=>{}))',
+  ],
+  [
+    /document\.getElementById/g,
+    '(typeof document!=="undefined"?document.getElementById:(()=>{}))',
+  ],
+  [
+    /(<script>[\s\S]*?)(generate\(\);)([\s\S]*?<\/script>)/g,
+    '$1if(typeof window!=="undefined"){$2}$3',
+  ],
+] as const;
 
-  md.parse = (src: string, env: any) => {
-    src = src.replace(/<code([^>]*)><code>/g, "<code$1></code>");
+const applySSRFixes = (src: string): string => {
+  let result = src.replace(/<code([^>]*)><code>/g, "<code$1></code>");
+  for (const [pattern, replacement] of SSR_FIXES) {
+    result = result.replace(pattern, replacement);
+  }
+  return result;
+};
 
-    src = src.replace(
-      /window\.crypto\.getRandomValues/g,
-      '(typeof window !== "undefined" ? window.crypto.getRandomValues : (() => {}))'
-    );
-
-    src = src.replace(
-      /document\.getElementById/g,
-      '(typeof document !== "undefined" ? document.getElementById : (() => {}))'
-    );
-
-    src = src.replace(
-      /(<script>[\s\S]*?)(generate\(\);)([\s\S]*?<\/script>)/g,
-      '$1if (typeof window !== "undefined") { $2 }$3'
-    );
-
-    return originalParse(src, env);
-  };
+export function fixSSRPlugin(md: MarkdownIt): void {
+  const originalParse = md.parse;
+  md.parse = (src: string, env?: any) =>
+    originalParse.call(md, applySSRFixes(src), env);
 }

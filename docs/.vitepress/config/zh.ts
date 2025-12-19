@@ -1,5 +1,6 @@
-import { DefaultTheme, defineConfig } from "vitepress";
-import { createItemsWithPrefix } from "./common";
+import type { DefaultTheme } from "vitepress";
+import { defineConfig } from "vitepress";
+import { createPrefixedItems } from "./common";
 
 const indexSideBar: DefaultTheme.SidebarItem[] = [
   {
@@ -32,14 +33,14 @@ const clientsSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "Android",
         link: "android",
-        items: createItemsWithPrefix("android/", [
+        items: createPrefixedItems("android/", [
           { text: "特性", link: "features" },
         ]),
       },
       {
         text: "Apple 平台",
         link: "apple",
-        items: createItemsWithPrefix("apple/", [
+        items: createPrefixedItems("apple/", [
           { text: "特性", link: "features" },
         ]),
       },
@@ -56,7 +57,7 @@ const manualSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "代理",
         link: "",
-        items: createItemsWithPrefix("proxy/", [
+        items: createPrefixedItems("proxy/", [
           { text: "服务端", link: "server" },
           { text: "客户端", link: "client" },
         ]),
@@ -64,7 +65,7 @@ const manualSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "代理协议",
         link: "",
-        items: createItemsWithPrefix("proxy-protocol/", [
+        items: createPrefixedItems("proxy-protocol/", [
           { text: "Shadowsocks", link: "shadowsocks" },
           { text: "Trojan", link: "trojan" },
           { text: "Hysteria 2", link: "hysteria2" },
@@ -73,7 +74,7 @@ const manualSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "杂项",
         link: "",
-        items: createItemsWithPrefix("misc/", [
+        items: createPrefixedItems("misc/", [
           { text: "TunnelVision", link: "tunnelvision" },
         ]),
       },
@@ -90,7 +91,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "DNS",
         link: "dns",
-        items: createItemsWithPrefix("dns/", [
+        items: createPrefixedItems("dns/", [
           { text: "DNS 服务器", link: "server" },
           { text: "DNS 规则", link: "rule" },
           { text: "DNS 规则动作", link: "rule_action" },
@@ -101,7 +102,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "路由",
         link: "route",
-        items: createItemsWithPrefix("route/", [
+        items: createPrefixedItems("route/", [
           { text: "Geosite", link: "geosite" },
           { text: "GeoIP", link: "geoip" },
           { text: "路由规则", link: "rule" },
@@ -112,7 +113,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "规则集",
         link: "rule-set",
-        items: createItemsWithPrefix("rule-set/", [
+        items: createPrefixedItems("rule-set/", [
           { text: "无头规则", link: "headless-rule" },
           { text: "源文件格式", link: "source-format" },
           { text: "Adguard DNS Filter", link: "adguard" },
@@ -121,7 +122,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "实验性",
         link: "experimental",
-        items: createItemsWithPrefix("experimental/", [
+        items: createPrefixedItems("experimental/", [
           { text: "缓存文件", link: "cache-file" },
           { text: "Clash API", link: "clash-api" },
           { text: "V2Ray API", link: "v2ray-api" },
@@ -130,7 +131,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "通用",
         link: "",
-        items: createItemsWithPrefix("shared/", [
+        items: createPrefixedItems("shared/", [
           { text: "监听字段", link: "listen" },
           { text: "拨号字段", link: "dial" },
           { text: "TLS", link: "tls" },
@@ -144,7 +145,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "端点",
         link: "endpoint",
-        items: createItemsWithPrefix("endpoint/", [
+        items: createPrefixedItems("endpoint/", [
           { text: "WireGuard", link: "wireguard" },
           { text: "Tailscale", link: "tailscale" },
         ]),
@@ -156,7 +157,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "入站",
         link: "inbound",
-        items: createItemsWithPrefix("inbound/", [
+        items: createPrefixedItems("inbound/", [
           { text: "Direct", link: "direct" },
           { text: "Mixed", link: "mixed" },
           { text: "SOCKS", link: "socks" },
@@ -178,7 +179,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "出站",
         link: "outbound",
-        items: createItemsWithPrefix("outbound/", [
+        items: createPrefixedItems("outbound/", [
           { text: "Direct", link: "direct" },
           { text: "Block", link: "block" },
           { text: "SOCKS", link: "socks" },
@@ -202,7 +203,7 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
       {
         text: "服务",
         link: "service",
-        items: createItemsWithPrefix("service/", [
+        items: createPrefixedItems("service/", [
           { text: "CCM", link: "ccm" },
           { text: "DERP", link: "derp" },
           { text: "OCM", link: "ocm" },
@@ -214,50 +215,34 @@ const configurationSideBar: DefaultTheme.SidebarItem[] = [
   },
 ];
 
+const navItems: DefaultTheme.NavItemWithLink[] = [
+  { text: "安装", link: "/installation/package-manager" },
+  { text: "图形界面客户端", link: "/clients/" },
+  { text: "手册", link: "/manual/proxy/server" },
+  { text: "配置", link: "/configuration/" },
+];
+
+const sideBarConfig: DefaultTheme.SidebarMulti = {
+  "/installation": { base: "/installation/", items: installationSideBar },
+  "/clients": { base: "/clients/", items: clientsSideBar },
+  "/manual": { base: "/manual/", items: manualSideBar },
+  "/configuration": { base: "/configuration/", items: configurationSideBar },
+  "/": { base: "", items: indexSideBar },
+};
+
 export const zh = defineConfig({
   lang: "zh-hans",
   themeConfig: {
-    nav: [
-      { text: "安装", link: "/installation/package-manager" },
-      { text: "图形界面客户端", link: "/clients/" },
-      { text: "手册", link: "/manual/proxy/server" },
-      { text: "配置", link: "/configuration/" },
-    ],
-
+    nav: navItems,
     sidebarMenuLabel: "菜单",
-    sidebar: {
-      "/installation": { base: "/installation/", items: installationSideBar },
-      "/clients": { base: "/clients/", items: clientsSideBar },
-      "/manual": { base: "/manual/", items: manualSideBar },
-      "/configuration": {
-        base: "/configuration/",
-        items: configurationSideBar,
-      },
-      "/": { base: "", items: indexSideBar },
-    },
-
-    footer: {
-      copyright: `版权所有 © 2022 nekohasekai`,
-    },
-
-    docFooter: {
-      prev: "上一页",
-      next: "下一页",
-    },
-
-    outline: {
-      label: "页面导航",
-      level: "deep",
-    },
-
+    sidebar: sideBarConfig,
+    footer: { copyright: "版权所有 © 2022 nekohasekai" },
+    docFooter: { prev: "上一页", next: "下一页" },
+    outline: { label: "页面导航", level: "deep" },
     lastUpdated: {
       text: "最后更新于",
-      formatOptions: {
-        dateStyle: "short",
-        timeStyle: "medium",
-      },
+      formatOptions: { dateStyle: "short", timeStyle: "medium" },
     },
-
     returnToTopLabel: "回到顶部",
   },
 });
@@ -271,9 +256,6 @@ export const search: DefaultTheme.AlgoliaSearchOptions["locales"] = {
         buttonAriaLabel: "搜索文档",
       },
       modal: {
-        // @ts-ignore
-        noResultsText: "无法找到相关结果",
-        resetButtonTitle: "清除查询条件",
         searchBox: {
           resetButtonTitle: "清除查询条件",
           resetButtonAriaLabel: "清除查询条件",

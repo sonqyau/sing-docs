@@ -1,36 +1,27 @@
 import type MarkdownIt from "markdown-it";
 
-export function fixTagsPlugin(md: MarkdownIt) {
+const CODE_TAG_REGEX = /<code([^>]*)><code>/g;
+
+const fixCodeTags = (content: string): string =>
+  content.replace(CODE_TAG_REGEX, "<code$1></code>");
+
+const createTagFixingRenderer =
+  (defaultRender?: any) =>
+  (tokens: any[], idx: number, options: any, env: any, self: any) => {
+    tokens[idx].content = fixCodeTags(tokens[idx].content);
+    return defaultRender
+      ? defaultRender(tokens, idx, options, env, self)
+      : tokens[idx].content;
+  };
+
+export function fixTagsPlugin(md: MarkdownIt): void {
   const defaultRender =
     md.renderer.rules.html_block || md.renderer.rules.html_inline;
 
-  const fixTags = (content: string): string => {
-    return content.replace(/<code([^>]*)><code>/g, "<code$1></code>");
-  };
+  md.renderer.rules.html_block = createTagFixingRenderer(defaultRender);
+  md.renderer.rules.html_inline = createTagFixingRenderer(defaultRender);
 
-  md.renderer.rules.html_block = (tokens, idx, options, env, self) => {
-    const token = tokens[idx];
-    token.content = fixTags(token.content);
-
-    if (defaultRender) {
-      return defaultRender(tokens, idx, options, env, self);
-    }
-    return token.content;
-  };
-
-  md.renderer.rules.html_inline = (tokens, idx, options, env, self) => {
-    const token = tokens[idx];
-    token.content = fixTags(token.content);
-
-    if (defaultRender) {
-      return defaultRender(tokens, idx, options, env, self);
-    }
-    return token.content;
-  };
-
-  const originalParse = md.parse.bind(md);
-  md.parse = (src: string, env: any) => {
-    src = fixTags(src);
-    return originalParse(src, env);
-  };
+  const originalParse = md.parse;
+  md.parse = (src: string, env?: any) =>
+    originalParse.call(md, fixCodeTags(src), env);
 }
